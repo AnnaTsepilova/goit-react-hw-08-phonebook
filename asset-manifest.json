@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/goit-react-hw-08-phonebook/static/css/main.362bef18.css",
+    "main.js": "/goit-react-hw-08-phonebook/static/js/main.45c1eea8.js",
+    "static/media/BingWallpaper.jpg": "/goit-react-hw-08-phonebook/static/media/BingWallpaper.0a26bf4f6ede3ef94d00.jpg",
+    "index.html": "/goit-react-hw-08-phonebook/index.html",
+    "main.362bef18.css.map": "/goit-react-hw-08-phonebook/static/css/main.362bef18.css.map",
+    "main.45c1eea8.js.map": "/goit-react-hw-08-phonebook/static/js/main.45c1eea8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.362bef18.css",
+    "static/js/main.45c1eea8.js"
+  ]
+}
