@@ -16,6 +16,8 @@ import ContactsList from 'components/ContactsList/ContactsList';
 import Filter from 'components/Filter/Filter';
 import Footer from 'components/Footer/Footer';
 
+import SignInSide from 'components/SignIn/SignIn';
+
 export default function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
@@ -27,6 +29,7 @@ export default function App() {
 
   return (
     <>
+      <SignInSide />
       <PhonePageWrapper>
         <PhonebookContainer>
           <Title>Phonebook</Title>
