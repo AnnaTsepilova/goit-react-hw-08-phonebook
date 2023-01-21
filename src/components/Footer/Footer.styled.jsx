@@ -31,16 +31,19 @@ export const FooterDataText = styled.p`
 `;
 
 export const FooterIcon = styled(BsGithub)`
-  margin-left: 5px;
-  color: #eebf31;
-  width: 30px;
-  height: 30px;
+  margin-left: 2px;
+  color: #1976d2;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
+
+  vertical-align: middle;
+
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
     scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
-    box-shadow: 0 0 13px 3px #eebf31;
+    box-shadow: 0 0 13px 3px #1976d2;
     transform: scale(1.3);
   }
 `;
