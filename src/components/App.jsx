@@ -6,18 +6,20 @@ import 'modern-normalize';
 // import 'react-notifications/lib/notifications.css';
 // import Footer from 'components/Footer/Footer';
 
-const SignInPage = lazy(() => import('pages/SignIn/SignInPage'));
-const SignUpPage = lazy(() => import('pages/SignUp/SignUpPage'));
-const Contacts = lazy(() => import('pages/Contacts/Contacts'));
+import SignUpPage from 'pages/SignUp/SignUpPage';
+import SignInPage from 'pages/SignIn/SignInPage';
+//const SignInPage = lazy(() => import('pages/SignIn/SignInPage'));
+//const SignUpPage = lazy(() => import('pages/SignUp/SignUpPage'));
+//const Contacts = lazy(() => import('pages/Contacts/Contacts'));
 
 export default function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<SignInPage />} />
-        <Route path="/login" element={<SignInPage />} />
+        {/* <Route path="/login" element={<SignInPage />} /> */}
         <Route path="/register" element={<SignUpPage />} />
-        <Route path="/contacts" element={<Contacts />} />
+        {/* <Route path="/contacts" element={<Contacts />} /> */}
         <Route path="*" element={<Navigate to={'/'} />} />
       </Routes>
       {/* <NotificationContainer /> */}
