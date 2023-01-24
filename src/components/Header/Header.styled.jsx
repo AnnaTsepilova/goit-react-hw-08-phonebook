@@ -44,7 +44,13 @@ export const HeaderNavBtn = styled(NavLink)`
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
-  &:hover {
+  &.active {
+    color: #9c27b0;
+    background-color: #fff;
+  }
+
+  :hover:not(.active),
+  :focus-visible:not(.active) {
     color: #9c27b0;
     background-color: #fff;
   }

@@ -46,7 +46,14 @@ const authSlice = createSlice({
         state.token = null;
         state.isLoggedIn = false;
       })
-      .addCase(authOperations.logOut.rejected, handleRejected);
+      .addCase(authOperations.logOut.rejected, handleRejected)
+
+      .addCase(authOperations.fetchCurrentUser.pending, handlePending)
+      .addCase(authOperations.fetchCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+      })
+      .addCase(authOperations.fetchCurrentUser.rejected, handleRejected);
   },
 });
 
