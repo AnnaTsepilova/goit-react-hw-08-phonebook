@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <BrowserRouter basename="/goit-react-hw-05-movies">
+          <BrowserRouter basename="/goit-react-hw-08-phonebook">
             {/* <BrowserRouter> */}
             <App />
           </BrowserRouter>
