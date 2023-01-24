@@ -2,9 +2,11 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { selectContacts } from 'redux/selectors';
 
-import ContactItem from 'components/ContactItem/ContactItem';
-import { ContactsListContainer } from 'components/ContactsList/ContactsList.styled';
-import { Text } from 'components/ContactItem/ContactItem.styled';
+import ContactItem from 'components/ContactsList/ContactItem/ContactItem';
+import {
+  ContactsListContainer,
+  Text,
+} from 'components/ContactsList/ContactsList.styled';
 
 const getVisibleContacts = (items, searchQuery) => {
   return items.filter(item =>

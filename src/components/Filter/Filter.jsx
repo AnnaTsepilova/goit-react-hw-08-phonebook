@@ -2,15 +2,14 @@ import PropTypes from 'prop-types';
 
 import {
   FilterContainer,
-  FilterContactInputr,
+  FilterContactInput,
 } from 'components/Filter/Filter.styled';
-import { Label } from 'components/ContactForm/ContactForm.styled';
 
 export default function Filter({ searchQuery, filterByName }) {
   return (
     <FilterContainer>
-      <Label>Find contacts by name</Label>
-      <FilterContactInputr
+      <FilterContactInput
+        label="Find contacts by name"
         type="text"
         value={searchQuery}
         onChange={event => filterByName(event.target.value)}

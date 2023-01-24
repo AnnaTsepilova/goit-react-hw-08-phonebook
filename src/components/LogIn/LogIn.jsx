@@ -1,21 +1,23 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+//import FormControlLabel from '@mui/material/FormControlLabel';
+//import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { GithubLogo, SignUpLink } from 'components/SignIn/SignIn.styled';
+import * as authOperations from 'redux/auth/auth-operations';
+import { SignUpLink } from 'components/LogIn/LogIn.styled';
+import { GithubLogo } from 'components/Footer/Footer.styled';
 
 function Copyright(props) {
   return (
@@ -26,36 +28,62 @@ function Copyright(props) {
         align="center"
         {...props}
       >
-        {'Copyright © 2023 | Developed by '}
+        {'Copyright © '}
+        {new Date().getFullYear()}
+        {' | Developed by '}
         <Link
           color="inherit"
           href="https://github.com/AnnaTsepilova/goit-react-hw-08-phonebook"
         >
           <GithubLogo />
         </Link>{' '}
-        {/* {new Date().getFullYear()} */}
-        {/* <FooterIcon /> */}
       </Typography>
     </>
   );
 }
 
-const theme = createTheme();
-
-export default function SignInSide() {
+export default function LogIn() {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const location = useLocation();
+
+  const reset = () => {
+    setEmail('');
+    setPassword('');
+  };
+
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    dispatch(
+      authOperations.logIn({
+        email: data.get('email'),
+        password: data.get('password'),
+      })
+    ).then(result => {
+      if (result.type === 'auth/register/rejected') {
+        return;
+      }
+      reset();
     });
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <main>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -97,7 +125,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h2" variant="h5">
-              Sign in
+              Log in
             </Typography>
 
             <Box
@@ -114,6 +142,8 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={handleChange}
                 autoFocus
               />
               <TextField
@@ -124,12 +154,14 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
+                value={password}
+                onChange={handleChange}
                 autoComplete="current-password"
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
 
               <Button
                 type="submit"
@@ -137,15 +169,10 @@ export default function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Log In
               </Button>
 
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
+              <Grid container justifyContent="flex-end">
                 <Grid item>
                   <SignUpLink
                     to={`register`}
@@ -156,11 +183,29 @@ export default function SignInSide() {
                   </SignUpLink>
                 </Grid>
               </Grid>
+
+              {/* <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+
+                <Grid item>
+                  <SignUpLink
+                    to={`register`}
+                    state={location.state}
+                    variant="body2"
+                  >
+                    {"Don't have an account? Sign Up"}
+                  </SignUpLink>
+                </Grid>
+              </Grid> */}
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
+    </main>
   );
 }

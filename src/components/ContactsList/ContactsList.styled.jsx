@@ -1,12 +1,24 @@
 import styled from 'styled-components';
 
 export const ContactsListContainer = styled.ul`
-  list-style-type: disc;
-  padding-bottom: 2px;
-  padding-left: 20px;
-  padding-right: 20px;
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
 
-  height: 420px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 30px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 60px;
+
+  list-style: none;
+`;
+
+export const Text = styled.p`
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+
+  font-size: 20px;
 `;

@@ -2,7 +2,7 @@ import {
   FooterContainer,
   FooterDataWrapper,
   FooterDataText,
-  FooterIcon,
+  GithubLogo,
 } from 'components/Footer/Footer.styled';
 
 export default function Footer() {
@@ -15,7 +15,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           href="https://github.com/AnnaTsepilova"
         >
-          <FooterIcon />
+          <GithubLogo />
         </a>
       </FooterDataWrapper>
     </FooterContainer>

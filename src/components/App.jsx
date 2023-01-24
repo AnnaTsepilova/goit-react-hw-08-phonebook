@@ -1,27 +1,31 @@
-//import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import 'modern-normalize';
+import Loader from './Loader/Loader';
 
 // import { NotificationContainer } from 'react-notifications';
 // import 'react-notifications/lib/notifications.css';
 // import Footer from 'components/Footer/Footer';
 
-import SignUpPage from 'pages/SignUp/SignUpPage';
-import SignInPage from 'pages/SignIn/SignInPage';
-//const SignInPage = lazy(() => import('pages/SignIn/SignInPage'));
-//const SignUpPage = lazy(() => import('pages/SignUp/SignUpPage'));
-//const Contacts = lazy(() => import('pages/Contacts/Contacts'));
+const Layout = lazy(() => import('components/Layout/Layout'));
+const LogInPage = lazy(() => import('pages/LogIn/LogInPage'));
+const SignUpPage = lazy(() => import('pages/SignUp/SignUpPage'));
+const ContactsPage = lazy(() => import('pages/Contacts/ContactsPage'));
 
 export default function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<SignInPage />} />
-        {/* <Route path="/login" element={<SignInPage />} /> */}
-        <Route path="/register" element={<SignUpPage />} />
-        {/* <Route path="/contacts" element={<Contacts />} /> */}
-        <Route path="*" element={<Navigate to={'/'} />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<LogInPage />} />
+            <Route path="/login" element={<LogInPage />} />
+            <Route path="/register" element={<SignUpPage />} />
+            <Route path="/contacts" element={<ContactsPage />} />
+            <Route path="*" element={<Navigate to={'/'} />} />
+          </Route>
+        </Routes>
+      </Suspense>
       {/* <NotificationContainer /> */}
     </>
   );

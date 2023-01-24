@@ -4,8 +4,8 @@ import { BsGithub } from 'react-icons/bs';
 export const FooterContainer = styled.footer`
   width: 100%;
   min-height: 64px;
-  border-top: 1px solid #eebf31;
-  background-color: rgba(32, 32, 37, 0.541);
+  //border-top: 1px solid #1976d2;
+  background-color: rgba(32, 32, 37, 0.075);
 `;
 
 export const FooterDataWrapper = styled.div`
@@ -27,12 +27,11 @@ export const FooterDataText = styled.p`
   letter-spacing: 0.03em;
 
   text-align: center;
-  color: #fcfcfc;
 `;
 
-export const FooterIcon = styled(BsGithub)`
+export const GithubLogo = styled(BsGithub)`
   margin-left: 2px;
-  color: #1976d2;
+  color: #9c27b0;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -43,7 +42,7 @@ export const FooterIcon = styled(BsGithub)`
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
     scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
-    box-shadow: 0 0 13px 3px #1976d2;
+    box-shadow: 0 0 13px 3px #9c27b0;
     transform: scale(1.3);
   }
 `;

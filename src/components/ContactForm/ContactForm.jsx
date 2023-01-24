@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-import { selectContacts } from 'redux/selectors';
-
 import {
   FormContainer,
-  Label,
   ContactInput,
   Button,
+  ContactAddIcon,
 } from 'components/ContactForm/ContactForm.styled';
 
 export default function ContactForm() {
@@ -38,7 +37,9 @@ export default function ContactForm() {
       item.name.toLowerCase().includes(event.target.name.value.toLowerCase())
     );
     let isContactNumber = items.filter(item =>
-      item.phone.toLowerCase().includes(event.target.number.value.toLowerCase())
+      item.number
+        .toLowerCase()
+        .includes(event.target.number.value.toLowerCase())
     );
 
     if (isContactName.length) {
@@ -67,7 +68,7 @@ export default function ContactForm() {
     dispatch(
       addContact({
         name: event.target.name.value,
-        phone: event.target.number.value,
+        number: event.target.number.value,
       })
     );
     reset();
@@ -80,8 +81,9 @@ export default function ContactForm() {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <Label htmlFor={nameInputId}>Name</Label>
       <ContactInput
+        margin="normal"
+        label="Name"
         type="text"
         name="name"
         pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
@@ -91,8 +93,10 @@ export default function ContactForm() {
         onChange={handleNameChange}
         id={nameInputId}
       />
-      <Label htmlFor={telInputId}>Number</Label>
+
       <ContactInput
+        margin="normal"
+        label="Number"
         type="tel"
         name="number"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -102,7 +106,10 @@ export default function ContactForm() {
         onChange={handleNumberChange}
         id={telInputId}
       />
-      <Button type="submit">Add contact</Button>
+      <Button type="submit">
+        Add contact
+        <ContactAddIcon />
+      </Button>
     </FormContainer>
   );
 }

@@ -1,23 +1,24 @@
 import styled from 'styled-components';
 
+import TextField from '@mui/material/TextField';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+
 export const FormContainer = styled.form`
   padding: 0 20px 25px 20px;
-
-  background-color: ${props => props.theme.colors.background};
-  border-bottom: 7px solid #3f9eec;
 `;
 
 export const Label = styled.label`
   display: block;
   margin-bottom: ${props => props.theme.space[4]}px;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
-export const ContactInput = styled.input`
+export const ContactInput = styled(TextField)`
   display: block;
-  margin-bottom: 28px;
-  padding: ${props => props.theme.space[4]}px;
+  margin-bottom: 50px;
+  padding: 15px 20px;
   font-size: 20px;
+  width: 280px;
 
   border: 1px solid #21212133;
   border-radius: 4px;
@@ -32,14 +33,21 @@ export const ContactInput = styled.input`
 `;
 
 export const Button = styled.button`
-  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 16px;
+  padding: 10px;
+  min-width: 45px;
+  width: 280px;
   height: 40px;
 
   text-align: center;
   border-radius: 4px;
   border-width: 0;
   color: ${props => props.theme.colors.background};
-  background-color: ${props => props.theme.colors.accentColor};
+  background-color: #3f9eec;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   font-family: inherit;
   font-weight: 500;
@@ -56,16 +64,6 @@ export const Button = styled.button`
   }
 `;
 
-export const DeleteButton = styled(Button)`
-  min-width: 70px;
-  height: 25px;
-  font-size: 14px;
-
-  color: ${props => props.theme.colors.background};
-  background-color: #eebf31;
-
-  &:hover {
-    background-color: #eef7ff;
-    color: #eebf31;
-  }
+export const ContactAddIcon = styled(PersonAddAlt1Icon)`
+  margin-left: 10px;
 `;

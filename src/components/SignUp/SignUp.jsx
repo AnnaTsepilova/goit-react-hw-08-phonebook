@@ -1,21 +1,21 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-//import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { GithubLogo, SignUpLink } from 'components/SignIn/SignIn.styled';
+import * as authOperations from 'redux/auth/auth-operations';
+import { SignUpLink } from 'components/LogIn/LogIn.styled';
+import { GithubLogo } from 'components/Footer/Footer.styled';
 
 function Copyright(props) {
   return (
@@ -26,37 +26,75 @@ function Copyright(props) {
         align="center"
         {...props}
       >
-        {'Copyright © 2023 | Developed by '}
+        {'Copyright © '}
+        {new Date().getFullYear()}
+        {' | Developed by '}
         <Link
           color="inherit"
           href="https://github.com/AnnaTsepilova/goit-react-hw-08-phonebook"
         >
           <GithubLogo />
         </Link>{' '}
-        {/* {new Date().getFullYear()} */}
-        {/* <FooterIcon /> */}
       </Typography>
     </>
   );
 }
 
-const theme = createTheme();
-
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const location = useLocation();
+
+  const reset = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+  };
+
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'firstName':
+        setFirstName(value);
+        break;
+      case 'lastName':
+        setLastName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+    dispatch(
+      authOperations.register({
+        name: data.get('firstName') + ' ' + data.get('lastName'),
+        email: data.get('email'),
+        password: data.get('password'),
+      })
+    ).then(result => {
+      if (result.type === 'auth/register/rejected') {
+        return;
+      }
+      reset();
     });
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Grid container component="main" maxWidth="xs">
+    <main>
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
@@ -74,110 +112,115 @@ export default function SignUp() {
             backgroundPosition: 'center',
           }}
         />
-
-        <Box
-          sx={{
-            marginTop: 8,
-            mx: 7,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Typography
-            component="h1"
-            variant="h4"
-            align="center"
-            fontWeight="700"
-            marginBottom="25px"
-          >
-            Welcome to your personal phonebook!
-          </Typography>
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h2" variant="h5">
-            Sign up
-          </Typography>
-
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+            sx={{
+              marginTop: 8,
+              mx: 7,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} width="100%">
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Typography
+              component="h1"
+              variant="h4"
+              align="center"
+              fontWeight="700"
+              marginBottom="25px"
             >
-              Sign Up
-            </Button>
+              Let's try your personal phonebook!
+            </Typography>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h2" variant="h5">
+              Sign up
+            </Typography>
 
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <SignUpLink to={`login`} state={location.state} variant="body2">
-                  Already have an account? Sign in
-                </SignUpLink>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} width="100%">
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    value={firstName}
+                    onChange={handleChange}
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    value={lastName}
+                    onChange={handleChange}
+                    autoComplete="family-name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={handleChange}
+                    autoComplete="new-password"
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-            <Copyright sx={{ mt: 5 }} />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <SignUpLink
+                    to={`login`}
+                    state={location.state}
+                    variant="body2"
+                  >
+                    Already have an account? Log in
+                  </SignUpLink>
+                </Grid>
+              </Grid>
+              <Copyright sx={{ mt: 5 }} />
+            </Box>
           </Box>
-        </Box>
+        </Grid>
       </Grid>
-    </ThemeProvider>
+    </main>
   );
 }
