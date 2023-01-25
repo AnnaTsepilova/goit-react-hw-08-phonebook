@@ -4,7 +4,6 @@ import { BsGithub } from 'react-icons/bs';
 export const FooterContainer = styled.footer`
   width: 100%;
   min-height: 64px;
-  //border-top: 1px solid #1976d2;
   background-color: rgba(32, 32, 37, 0.075);
 `;
 

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import { useDispatch } from 'react-redux';
 
 import Avatar from '@mui/material/Avatar';
@@ -77,6 +80,19 @@ export default function SignUp() {
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    if (
+      firstName === '' ||
+      lastName === '' ||
+      email === '' ||
+      password === ''
+    ) {
+      Notify.warning(`Please input your registration data`, {
+        background: '#ef5350',
+        fontSize: '16px',
+        width: '350px',
+      });
+      return;
+    }
 
     dispatch(
       authOperations.register({
@@ -129,7 +145,7 @@ export default function SignUp() {
               fontWeight="700"
               marginBottom="25px"
             >
-              Let's try your personal phonebook!
+              Let's try it now!
             </Typography>
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
@@ -208,7 +224,7 @@ export default function SignUp() {
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <SignUpLink
-                    to={`login`}
+                    to={`/login`}
                     state={location.state}
                     variant="body2"
                   >
@@ -224,3 +240,10 @@ export default function SignUp() {
     </main>
   );
 }
+
+SignUp.propTypes = {
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+};

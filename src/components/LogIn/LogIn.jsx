@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import PropTypes from 'prop-types';
+
 import { useDispatch } from 'react-redux';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-//import FormControlLabel from '@mui/material/FormControlLabel';
-//import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -69,6 +70,16 @@ export default function LogIn() {
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    if (email === '' || password === '') {
+      Notify.warning(`Please input your email and password`, {
+        background: '#ef5350',
+        fontSize: '16px',
+        width: '350px',
+      });
+      return;
+    }
+
     dispatch(
       authOperations.logIn({
         email: data.get('email'),
@@ -112,15 +123,6 @@ export default function LogIn() {
               alignItems: 'center',
             }}
           >
-            <Typography
-              component="h1"
-              variant="h4"
-              align="center"
-              fontWeight="700"
-              marginBottom="25px"
-            >
-              Welcome to your personal phonebook!
-            </Typography>
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
@@ -158,10 +160,6 @@ export default function LogIn() {
                 onChange={handleChange}
                 autoComplete="current-password"
               />
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
 
               <Button
                 type="submit"
@@ -175,7 +173,7 @@ export default function LogIn() {
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <SignUpLink
-                    to={`register`}
+                    to={`/register`}
                     state={location.state}
                     variant="body2"
                   >
@@ -183,24 +181,6 @@ export default function LogIn() {
                   </SignUpLink>
                 </Grid>
               </Grid>
-
-              {/* <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-
-                <Grid item>
-                  <SignUpLink
-                    to={`register`}
-                    state={location.state}
-                    variant="body2"
-                  >
-                    {"Don't have an account? Sign Up"}
-                  </SignUpLink>
-                </Grid>
-              </Grid> */}
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
@@ -209,3 +189,9 @@ export default function LogIn() {
     </main>
   );
 }
+
+LogIn.propTypes = {
+  name: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+};

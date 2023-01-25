@@ -1,8 +1,12 @@
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import { useDispatch, useSelector } from 'react-redux';
 import authSelectors from 'redux/auth/auth-selectors';
 import * as authOperations from 'redux/auth/auth-operations';
+
 import LogoutIcon from '@mui/icons-material/Logout';
+
 import {
   HeaderBtnWrapper,
   LogOutBtn,
@@ -32,3 +36,7 @@ export default function UserMenu() {
     </HeaderBtnWrapper>
   );
 }
+
+UserMenu.propTypes = {
+  name: PropTypes.string,
+};

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -20,6 +21,11 @@ export const register = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
+      Notify.warning(`Registration is invalid`, {
+        background: '#ef5350',
+        fontSize: '16px',
+        width: '350px',
+      });
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -33,6 +39,11 @@ export const logIn = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
+      Notify.warning(`Login is invalid`, {
+        background: '#ef5350',
+        fontSize: '16px',
+        width: '350px',
+      });
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -43,6 +54,11 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await axios.post('/users/logout');
     token.unset();
   } catch (error) {
+    Notify.warning(`Logout is invalid`, {
+      background: '#ef5350',
+      fontSize: '16px',
+      width: '350px',
+    });
     return thunkAPI.rejectWithValue(error.message);
   }
 });
@@ -63,6 +79,11 @@ export const fetchCurrentUser = createAsyncThunk(
       const { data } = await axios.get('/users/current');
       return data;
     } catch (error) {
+      Notify.warning(`${error.message}`, {
+        background: '#ef5350',
+        fontSize: '16px',
+        width: '350px',
+      });
       return thunkAPI.rejectWithValue(error.message);
     }
   }

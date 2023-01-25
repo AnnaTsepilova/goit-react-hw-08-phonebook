@@ -20,16 +20,9 @@ export const PhonePageWrapper = styled.div`
 
 export const MainContainer = styled.main`
   display: flex;
-  //margin-top: 1px;
 `;
 
 export const PhonebookContainer = styled.main`
   min-height: 100vh;
-  //display: flex;
   width: 100%;
-
-  /* background-color: #fcfcfc; */
-  /* 
-  box-shadow: ${props => props.theme.shadows.boxShadow};
-  border-radius: 8px; */
 `;

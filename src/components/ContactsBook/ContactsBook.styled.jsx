@@ -3,12 +3,6 @@ import styled from 'styled-components';
 export const ContactsBookWrapper = styled.div`
   width: 100%;
   max-width: 1440px;
-  //margin-top: 58px;
-
-  /* background-color: #fcfcfc; */
-  /* 
-  box-shadow: ${props => props.theme.shadows.boxShadow};
-  border-radius: 8px; */
 `;
 
 export const SubTitle = styled.h2`

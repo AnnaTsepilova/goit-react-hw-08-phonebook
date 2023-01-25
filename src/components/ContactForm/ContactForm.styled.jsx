@@ -47,7 +47,7 @@ export const Button = styled.button`
   border-radius: 4px;
   border-width: 0;
   color: ${props => props.theme.colors.background};
-  background-color: #3f9eec;
+  background-color: #1976d2;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   font-family: inherit;
   font-weight: 500;
@@ -59,8 +59,8 @@ export const Button = styled.button`
     color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    background-color: #eef7ff;
-    color: ${props => props.theme.colors.accentColor};
+    background-color: #1565c0;
+    color: #fff;
   }
 `;
 

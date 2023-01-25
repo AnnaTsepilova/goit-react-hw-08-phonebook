@@ -1,22 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as authOperations from 'redux/auth/auth-operations';
 
-//import { persistReducer } from 'redux-persist';
-//import storage from 'redux-persist/lib/storage';
-
 const initialState = {
   user: { name: null, emal: null },
   token: null,
   isLoggedIn: false,
+  isFetchingCurrentUser: false,
 };
 
 const handlePending = state => {
   state.isLoading = true;
+  state.isFetchingCurrentUser = true;
 };
 
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
+  state.isFetchingCurrentUser = false;
 };
 
 const authSlice = createSlice({
@@ -29,6 +29,7 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.isFetchingCurrentUser = false;
       })
       .addCase(authOperations.register.rejected, handleRejected)
 
@@ -37,6 +38,7 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.isFetchingCurrentUser = false;
       })
       .addCase(authOperations.logIn.rejected, handleRejected)
 
@@ -45,6 +47,7 @@ const authSlice = createSlice({
         state.user = { name: null, emal: null };
         state.token = null;
         state.isLoggedIn = false;
+        state.isFetchingCurrentUser = false;
       })
       .addCase(authOperations.logOut.rejected, handleRejected)
 
@@ -52,11 +55,10 @@ const authSlice = createSlice({
       .addCase(authOperations.fetchCurrentUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
+        state.isFetchingCurrentUser = false;
       })
       .addCase(authOperations.fetchCurrentUser.rejected, handleRejected);
   },
 });
-
-//export const authReducer = persistReducer(authPersistConfig, authSlice.reducer);
 
 export default authSlice.reducer;

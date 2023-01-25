@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+
 import Toolbar from '@mui/material/Toolbar';
 
 import authSelectors from 'redux/auth/auth-selectors';
@@ -18,9 +18,6 @@ export default function Header() {
         <LogoTitle to={`/`} state={location.state}>
           Phonebook
         </LogoTitle>
-        <Link to={`contacts`} state={location.state}>
-          Contacts
-        </Link>
         {isLoggedIn ? <UserMenu /> : <AuthNav />}
       </Toolbar>
     </HeaderBar>

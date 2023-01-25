@@ -73,6 +73,7 @@ export default function ContactItem({ contact }) {
         <Phone>{contact.number}</Phone>
         <ButtonGroup>
           <DeleteButton type="button" onClick={handleDelete}>
+            Delete
             <IconDelete />
           </DeleteButton>
         </ButtonGroup>

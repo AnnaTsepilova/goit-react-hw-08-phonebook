@@ -6,7 +6,7 @@ import { Button } from 'components/ContactForm/ContactForm.styled';
 
 export const ContactCard = styled.div`
   position: relative;
-  height: 270px;
+  min-height: 300px;
   justify-content: center;
   text-align: center;
   padding: 25px;
@@ -65,13 +65,11 @@ export const DeleteButton = styled(Button)`
   margin-left: auto;
   margin-right: auto;
 
-  width: 45px;
-  height: 45px;
+  width: 100px;
+  height: 35px;
   border-radius: 4px;
   background-color: #ef5350;
 
-  /* color: ${props => props.theme.colors.background};
-  background-color: #eebf31; */
   box-shadow: rgb(0 0 0 / 20%) 0px 3px 5px -1px,
     rgb(0 0 0 / 14%) 0px 6px 10px 0px, rgb(0 0 0 / 12%) 0px 1px 18px 0px;
 
@@ -80,9 +78,10 @@ export const DeleteButton = styled(Button)`
 
   &:hover {
     color: #ef5350;
+    background-color: #eef7ff;
   }
 `;
 
 export const IconDelete = styled(DeleteIcon)`
-  font-size: 20px;
+  margin-left: 7px;
 `;
